@@ -41,6 +41,20 @@ void shuffleList(List &L) {
     */
     //-------------your code here-------------
 
+        if (first(L) != NULL) {
+        address P = first(L);
+        int n = randomInt(12);
+        for (int i=0; i<n; i++) {
+            deleteFirst(L,P);
+            if (info(P).ID % 2 == 0) {
+                insertAfter(L,first(L),P);
+            }
+            else {
+                insertLast(L,P);
+            }
+        }
+    }
+
         cout<<"UNDER MAIN TENIS"<<endl;
 
     //----------------------------------------
@@ -52,6 +66,30 @@ void sortListByID(List &L) {
     * FS : isi (elemen) dari list L terurut
     */
     //-------------your code here-------------
+
+    List L2;
+    createList(L2);
+    address P = first(L);
+    while (first(L) !=  P) {
+        address R = next(P);
+        if (first(L2) == NULL){
+            insertFirst(L2,P);
+        }
+        else if (info(P).ID <= info(first(L2)).ID) {
+            insertFirst(L2,P);
+        }
+        else if (info(P).ID >= info(last(L2)).ID) {
+            insertLast(L2,P);
+        }
+        else {
+            address Q = first(L2);
+            while (info(P).ID > info(next(Q)).ID) {
+                Q = next(Q);
+            }
+            insertAfter(L2,Q,P);
+        }
+        P = R;
+    }
 
         cout<<"UNDER MAIN TENIS"<<endl;
 
@@ -66,6 +104,15 @@ void playRepeat(List &L, int n) {
     */
     //-------------your code here-------------
 
+    address P = first(L);
+    while (P != first(L)) {
+        int x = n;
+        for (x; x>0; x--) {
+            playMusic(P);
+        }
+        P = next(P);
+    }
+
         cout<<"UNDER MAIN TENIS"<<endl;
 
     //----------------------------------------
@@ -79,6 +126,25 @@ void deleteMusicByID(List &L, infotype x) {
     * FS : elemen dengan ID yang dicari dideallocate
     */
     //-------------your code here-------------
+
+        address P,Prec;
+        if (first(L) != NULL) {
+            P = findElmByID(L,x);
+            if (P == NULL) {
+                cout << "music ID not found" << endl;
+            }
+            else if (P == first(L)) {
+                deleteFirst(L,P);
+            }
+            else if (P == last(L)) {
+                deleteLast(L,P);
+            }
+            else {
+                Prec = prev(P);
+                deleteAfter(L,Prec,P);
+            }
+        }
+        deallocate(P);
 
         cout<<"UNDER MAIN TENIS"<<endl;
 
